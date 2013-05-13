@@ -72,16 +72,12 @@ body{
         visibility:hidden;
         padding-left: 10px;
         -webkit-backface-visibility: hidden;
-        -webkit-transform: translateX(-100%);
+        -webkit-transform: translate3d(-1000px, 0, 0);
         -webkit-transition: all 0.5s;
-        -webkit-transition-delay: 0s;
-
         &.current{
             visibility: visible;
-            //-webkit-transform: translate3d(0, 0, 0);
-            -webkit-transform: translateX(0%);
-            -webkit-transition-delay: 0.5s;
-            z-index: 10;
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-transition-delay: 0s;
 
         }
 

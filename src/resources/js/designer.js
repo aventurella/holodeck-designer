@@ -37,6 +37,7 @@ require([
     function onLeftMenuItemClick(event){
         var menuClass = $(event.target).data('menuclass')
         $controls.find('.current').removeClass('current')
+        $('.'+menuClass).addClass('current').addClass('current')
     }
 
     initialize();
