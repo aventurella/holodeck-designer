@@ -1,0 +1,25 @@
+.panel-move-to-left{
+    -webkit-animation: moveToLeft .3s ease both;
+    animation: moveToLeft .3s ease both;
+}
+
+.panel-move-from-right{
+    -webkit-animation: moveFromRight .3s ease both;
+    animation: moveFromRight .3s ease both;
+}
+
+@-webkit-keyframes moveToLeft {
+    to { -webkit-transform: translateX(-100%); }
+}
+
+@keyframes moveToLeft {
+    to { transform: translateX(-100%); }
+}
+
+@-webkit-keyframes moveFromRight {
+    from { -webkit-transform: translateX(100%); }
+}
+
+@keyframes moveFromRight {
+    from { transform: translateX(100%); }
+}
