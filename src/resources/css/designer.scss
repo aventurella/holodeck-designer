@@ -1,6 +1,7 @@
 @import "bootstrap/_bootstrap";
 @import "menu/_cbp";
-@import "_animations";
+@import "animations";
+@import "component-palate";
 
 body{
     font-family: Lucida Grande, sans-serif;
@@ -54,8 +55,6 @@ body{
 .controls{
     left:70px;
     margin-left:0;
-    overflow:hidden;
-
 
     ul{
         margin:0;
@@ -73,10 +72,17 @@ body{
         visibility:hidden;
         padding-left: 10px;
         -webkit-backface-visibility: hidden;
-        -webkit-transform: translate3d(0, 0, 0);
+        -webkit-transform: translateX(-100%);
+        -webkit-transition: all 0.5s;
+        -webkit-transition-delay: 0s;
 
         &.current{
             visibility: visible;
+            //-webkit-transform: translate3d(0, 0, 0);
+            -webkit-transform: translateX(0%);
+            -webkit-transition-delay: 0.5s;
+            z-index: 10;
+
         }
 
 
@@ -94,6 +100,10 @@ body{
         }
     }
 
+}
+
+.ui-sortable-helper{
+    color:#ff0000;
 }
 
 

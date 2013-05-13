@@ -7,13 +7,13 @@
     <script src="resources/js/designer.js"></script>
 </head>
 <body>
-    <div class="row-fluid">
-        <div class="span1">
+    <div class="container-fluid">
+        <div class="row">
             <div class="column menu">
                 <ul class="cbp-vimenu">
                     <li><a href="#" class="menu-logo">Logo</a></li>
-                    <li><a href="#" class="menu-light" data-menuclass='hue-lights'>Archive</a></li>
-                    <li><a href="#" class="menu-gear" data-menuclass='hue-control'>Search</a></li>
+                    <li><a href="#" class="menu-light">Archive</a></li>
+                    <li><a href="#" class="menu-gear">Search</a></li>
 
                     <!-- Example for active item:
                     <li class="cbp-vicurrent"><a href="#" class="icon-pencil">Pencil</a></li>
@@ -21,52 +21,34 @@
                 </ul>
             </div>
         </div>
-        <div class="span4 row">
+        <div class="row">
             <div class="span4 column controls">
-                <ul>
-                    <li class="panel hue-lights current">
-                        <fieldset>
-                            <legend>Hues</legend>
-                            <form>
-                                <label>Select Hue</label>
-                                <select name="hue">
-                                    <option>10.10.1.3</option>
-                                    <option>10.10.1.2</option>
-                                <select>
-                                <label>Username</label>
-                                <input type="text" placeholder="Username">
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <div class="btn">Load Lights</div>
-                                    </div>
+            <ul>
+                <li class="panel hue-lights current">
+                    <fieldset>
+                        <legend>Hues</legend>
+                        <form>
+                            <label>Select Hue</label>
+                            <select name="hue">
+                                <option>10.10.1.3</option>
+                                <option>10.10.1.2</option>
+                            <select>
+                            <label>Username</label>
+                            <input type="text" placeholder="Username">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <div class="btn">Load Lights</div>
                                 </div>
-                            </form>
-                        </fieldset>
-                        <ul id="sortable1" class="connectedSortable">
-                            <li class="ui-state-default">Item 1</li>
-                            <li class="ui-state-default">Item 2</li>
-                            <li class="ui-state-default">Item 3</li>
-                            <li class="ui-state-default">Item 4</li>
-                            <li class="ui-state-default">Item 5</li>
-                        </ul>
-                    </li>
-                    <li class="panel hue-control">
-                        Testing
-                    </li>
-                </ul>
-
+                            </div>
+                        </form>
+                    </fieldset>
+                </li>
+                <li class="panel hue-control">
+                    Testing
+                </li>
+            </ul>
             </div>
         </div>
-        <div class="span4 palate">
-            <ul id="sortable2" class="connectedSortable">
-                <li class="ui-state-highlight">Item 1</li>
-                <li class="ui-state-highlight">Item 2</li>
-                <li class="ui-state-highlight">Item 3</li>
-                <li class="ui-state-highlight">Item 4</li>
-                <li class="ui-state-highlight">Item 5</li>
-            </ul>
-        </div>
-
 <!--
             <div class="span3">
                 <div class="row-fluid hue-selection">

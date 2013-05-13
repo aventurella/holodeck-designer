@@ -1,2 +1,4 @@
 Designer
 .resources
+.sass-cache
+*.css
