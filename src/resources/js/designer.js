@@ -1,45 +1,50 @@
 require([
     'jquery',
     'underscore',
+    'mustache',
+    'src/resources/js/utils/menu',
+    'src/resources/js/utils/dnd',
     'bootstrap',
     'requireLib',
     'jqueryui',
-], function($, _, Mustache){
+], function($, _, Mustache, MainMenu, DragAndDrop){
 
-    var currentPanel = false;
-    var panelContext = false;
-    var transitionIn = 'panel-move-from-right';
-    var transitionOut = 'panel-move-to-left';
-    var isAnimating = false;
-    var animationEndEvent = 'webkitAnimationEnd';
-    var $leftMenu = $('.cbp-vimenu')
-    var $submenus = $leftMenu.find('a[data-menuclass]')
-    var $controls = $('.controls')
-    
+    var mainMenu = MainMenu;
 
-    function initialize(){
-        initializeMenu();
-        initializeDragMenu();
-        panelContext = $('.column.controls');
-    }
+    // var currentPanel = false;
+    // var panelContext = false;
+    // var transitionIn = 'panel-move-from-right';
+    // var transitionOut = 'panel-move-to-left';
+    // var isAnimating = false;
+    // var animationEndEvent = 'webkitAnimationEnd';
+    // var $leftMenu = $('.cbp-vimenu')
+    // var $submenus = $leftMenu.find('a[data-menuclass]')
+    // var $controls = $('.controls')
 
 
-    function initializeDragMenu(){
-        $( "#sortable1, #sortable2" ).sortable({
-          connectWith: ".connectedSortable"
-        }).disableSelection();
-    }
+    // function initialize(){
+    //     initializeMenu();
+    //     initializeDragMenu();
+    //     panelContext = $('.column.controls');
+    // }
 
-    function initializeMenu(){
-        $submenus.on('click',_.bind(onLeftMenuItemClick,this))
-    }
 
-    function onLeftMenuItemClick(event){
-        var menuClass = $(event.target).data('menuclass')
-        $controls.find('.current').removeClass('current')
-        $('.'+menuClass).addClass('current').addClass('current')
-    }
+    // function initializeDragMenu(){
+    //     $( "#sortable1, #sortable2" ).sortable({
+    //       connectWith: ".connectedSortable"
+    //     }).disableSelection();
+    // }
 
-    initialize();
+    // function initializeMenu(){
+    //     $submenus.on('click',_.bind(onLeftMenuItemClick,this))
+    // }
+
+    // function onLeftMenuItemClick(event){
+    //     var menuClass = $(event.target).data('menuclass')
+    //     $controls.find('.current').removeClass('current')
+    //     $('.'+menuClass).addClass('current').addClass('current')
+    // }
+
+    // initialize();
 
 });
