@@ -14,22 +14,32 @@ define([
 
 
     function init(){
-        $view.find('.btn').on('click', onLoadLights);
+        $view.find('.btn').on('click', onLoadLightsClick);
         HueClient.init(HueResource);
 
         hue = HueClient;
         viewDidLoad();
     }
 
-    function onLoadLights(e){
+    function onLoadLightsClick(e){
         account = getHueCredentials();
-        var lights = hue.getLights(account);
+        var lights = hue.getLights(account, loadLightsComplete);
+    }
 
+    function loadLightsComplete(data){
         $target = $('#sortable1');
-        for(var i=0; i < lights.length; i++){
-            var light = lights[i];
-            $target.append('<li>' + light.number + '</li>');
-        }
+        $.each(data, function(key, value){
+            var name = 'Light ' + value.number;
+
+            if (value.name){
+                name = value.name;
+            }
+
+            $target
+            .append($('<li></li>')
+            .attr('data-number', value.number)
+            .text(name));
+        });
     }
 
     function getHueCredentials(){
