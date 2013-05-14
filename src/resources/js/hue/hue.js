@@ -6,12 +6,17 @@ define([], function(){
         resource = hueResource;
     }
 
-    function getLights(account){
-        return resource.getLights(account);
+    function getLights(account, callback){
+        return resource.getLights(account, callback);
+    }
+
+    function getHues(callback){
+        return resource.getHues(callback);
     }
 
     return {
         'init': init,
-        'getLights': getLights
+        'getLights': getLights,
+        'getHues': getHues
     };
 });

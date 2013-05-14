@@ -9,8 +9,7 @@ require([
     'jqueryui',
 ], function($, _, Mustache, MainMenu, DragAndDrop){
 
-    var mainMenu = MainMenu;
-
+    var mainMenu = MainMenu
     // var currentPanel = false;
     // var panelContext = false;
     // var transitionIn = 'panel-move-from-right';

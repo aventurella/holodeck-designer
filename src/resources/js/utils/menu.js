@@ -21,6 +21,8 @@ define([
 
     function initializeMenu(){
         currentPanel = LightsPanel;
+        currentPanel.viewWillAppear();
+
         $submenus.on('click', _.bind(onLeftMenuItemClick, this));
     }
 
@@ -46,6 +48,9 @@ define([
     function transitionPanelFromTo(outPanel, inPanel){
         isAnimating = true;
 
+        inPanel.viewWillAppear();
+        outPanel.viewWillDisappear();
+
         outPanel.$view.removeClass('current');
         currentPanel = inPanel;
 
@@ -58,7 +63,6 @@ define([
     }
 
     function onAnimationEnd(outPanel, inPanel) {
-        console.log('onAnimationEnd');
         isAnimating = false;
     }
 

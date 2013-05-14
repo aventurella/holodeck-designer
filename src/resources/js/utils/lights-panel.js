@@ -2,18 +2,23 @@ define([
     'jquery',
     'src/resources/js/hue/hue',
     'src/resources/js/hue/cocoa'
+    //'src/resources/js/hue/mock'
 ], function($, HueClient, HueResource){
 
     var $view = $('.panel.hue-lights');
+    var $hostInput = $view.find('select[name="host"]');
+    var $usernameInput = $view.find('input[name="username"]');
+
     var hue = false;
+    var hueList = [];
 
 
     function init(){
         $view.find('.btn').on('click', onLoadLights);
-        console.log(HueClient, HueResource);
         HueClient.init(HueResource);
 
         hue = HueClient;
+        viewDidLoad();
     }
 
     function onLoadLights(e){
@@ -28,17 +33,32 @@ define([
     }
 
     function getHueCredentials(){
-        var host = $view.find('select[name="host"]').val();
-        var username = $view.find('input[name="username"]').val();
-
         return {
-            'host': host,
-            'username': username
+            'host': $hostInput.val(),
+            'username': $usernameInput.val()
         };
+    }
+
+    function loadHuesComplete(data){
+        hueList = data;
+        $.each(data, function(key, value){
+            $hostInput
+            .append($('<option></option>')
+            .attr('value', value.host)
+            .text(value.host));
+        });
+    }
+
+    function viewWillAppear(){}
+    function viewWillDisappear(){}
+    function viewDidLoad(){
+        hue.getHues(loadHuesComplete);
     }
 
     init();
     return {
-        '$view': $view
+        '$view': $view,
+        'viewWillAppear': viewWillAppear,
+        'viewWillDisappear': viewWillDisappear
     };
 });
