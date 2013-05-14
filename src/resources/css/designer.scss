@@ -1,6 +1,7 @@
 @import "bootstrap/_bootstrap";
 @import "menu/_cbp";
 @import "utils/animations";
+@import "utils/dragndrop";
 @import "utils/component-palate";
 
 body{
@@ -52,6 +53,10 @@ body{
     width:70px;
 }
 
+.drag{
+    cursor: move;
+}
+
 .controls{
     left:70px;
     margin-left:0;
@@ -60,6 +65,7 @@ body{
         margin:0;
         padding:0;
         list-style-type:none;
+        overflow:hidden;
     }
 
     .panel{
