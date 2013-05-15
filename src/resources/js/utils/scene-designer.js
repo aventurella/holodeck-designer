@@ -1,12 +1,13 @@
 define([
     'jquery',
     'underscore',
-    'mustache'
-], function($, _ , Mustache){
+    'mustache',
+    'src/resources/js/utils/scene-light'
+], function($, _ , Mustache, SceneLight){
 
     var $view = false;
     var $sceneLights = false;
-    var lightTemplate = false;
+    //var lightTemplate = false;
     var currentLights = {};
 
 
@@ -19,7 +20,7 @@ define([
 
         $sceneLights = $('#scene-lights-list');
 
-        lightTemplate = Mustache.compile($('#scene-light-template').html());
+        //lightTemplate = Mustache.compile($('#scene-light-template').html());
     }
 
     function onLightEnter(e){
@@ -58,10 +59,29 @@ define([
     }
 
     function addLightForModel(model){
-        var light = $(lightTemplate(model));
-        currentLights[model.number] = light;
+        var light = new SceneLight(model);
 
-        $sceneLights.append(light);
+        currentLights[model.number] = light;
+        //registerLight(light);
+        $sceneLights.append(light.$view);
+    }
+
+    // function registerLight(light){
+    //     light.find('.color-block').on('click', light, onColorBlockClicked);
+    // }
+
+    function onColorBlockClicked(e){
+        console.log(e);
+        console.log(e.data);
+
+    }
+
+    function transitionToColorControl(light){
+
+    }
+
+    function transitionFromColorControl(light){
+
     }
 
     init();

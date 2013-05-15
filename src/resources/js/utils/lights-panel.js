@@ -40,7 +40,6 @@ define([
 
     function loadLightsComplete(data){
 
-
         invalidateLights();
 
         $.each(data, function(key, value){

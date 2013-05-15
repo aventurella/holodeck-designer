@@ -1,3 +1,13 @@
+.color-move-to-left{
+    -webkit-transform: translateX(0px) !important;
+    transform: translateX(0px) !important;
+}
+
+.color-move-from-left{
+    -webkit-animation: colorMoveFromLeft .3s ease both;
+    animation: colorMoveFromLeft .3s ease both;
+}
+
 .panel-move-to-left{
     -webkit-animation: moveToLeft .3s ease both;
     animation: moveToLeft .3s ease both;
