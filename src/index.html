@@ -5,9 +5,16 @@
     <title></title>
     <link rel="stylesheet" href="resources/css/designer.css">
     <script src="resources/js/designer.js"></script>
-    <script id="light-template" type="text/x-mustache">
+    <script id="bridge-light-template" type="text/x-mustache">
         <li class="bridge-light" draggable="true">
             <div class="bridge-light-view">
+                <label>{{ name }}</label>
+            </div>
+        </li>
+    </script>
+    <script id="scene-light-template" type="text/x-mustache">
+        <li class="scene-light" draggable="true">
+            <div class="scene-light-view">
                 <label>{{ name }}</label>
             </div>
         </li>

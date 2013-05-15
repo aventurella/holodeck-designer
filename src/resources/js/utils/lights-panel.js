@@ -1,14 +1,16 @@
 define([
     'jquery',
+    'underscore',
     'mustache',
     'src/resources/js/hue/hue',
     //'src/resources/js/hue/cocoa'
     'src/resources/js/hue/mock'
-], function($, Mustache, HueClient, HueResource){
+], function($, _, Mustache, HueClient, HueResource){
 
-    var $view = $('.panel.hue-lights');
-    var $hostInput = $view.find('select[name="host"]');
-    var $usernameInput = $view.find('input[name="username"]');
+    var $view = false;
+    var $hostInput = false;
+    var $usernameInput = false;
+    var $availableLights = false;
 
     var hue = false;
     var hueList = [];
@@ -17,11 +19,15 @@ define([
 
 
     function init(){
+        $view = $('.panel.hue-lights');
+        $hostInput = $view.find('select[name="host"]');
+        $usernameInput = $view.find('input[name="username"]');
+        $availableLights = $('#available-lights');
 
         $view.find('.btn').on('click', onLoadLightsClick);
         HueClient.init(HueResource);
 
-        lightTemplate = Mustache.compile($('#light-template').html());
+        lightTemplate = Mustache.compile($('#bridge-light-template').html());
 
         hue = HueClient;
         viewDidLoad();
@@ -33,7 +39,7 @@ define([
     }
 
     function loadLightsComplete(data){
-        $target = $('#available-lights');
+
 
         invalidateLights();
 
@@ -50,39 +56,40 @@ define([
             };
 
             var light = $(lightTemplate(model));
-            registerLight(light);
-            $target.append(light);
+            addLight(light, model);
         });
     }
 
-    function registerLight(light){
-        currentLights.push(light);
-        light.on('dragstart', lightStartedDragging);
+    function addLight(light, model){
+        currentLights.push(light, model);
+
+        light.on('dragstart', model, lightStartedDragging);
         light.on('dragend', lightStoppedDragging);
-    }
 
-    function lightStartedDragging(e){
-        console.log('STARTED');
-        this.style.opacity = '0.4';
-        var dataTransfer = e.originalEvent.dataTransfer
-
-        dataTransfer.effectAllowed = 'copy';
-        var data = JSON.stringify({'testing': 1});
-        dataTransfer.setData('application/x-bridge-light', data);
-    }
-
-    function lightStoppedDragging(e){
-        console.log('Stopped');
-        this.style.opacity = '1';
+        $availableLights.append([light, model]);
     }
 
     function invalidateLights(){
         _.each(currentLights, function(each){
-            each.off('dragstart');
-            each.remove();
+            $light = $(each[0]);
+            $light.off('dragstart');
+            $light.remove();
         });
 
         currentLights = [];
+    }
+
+    function lightStartedDragging(e){
+        this.style.opacity = '0.4';
+        var dataTransfer = e.originalEvent.dataTransfer;
+
+        dataTransfer.effectAllowed = 'copy';
+        var data = JSON.stringify(e.data);
+        dataTransfer.setData('application/x-bridge-light', data);
+    }
+
+    function lightStoppedDragging(e){
+        this.style.opacity = '1';
     }
 
     function getHueCredentials(){
