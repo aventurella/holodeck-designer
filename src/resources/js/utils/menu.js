@@ -7,11 +7,11 @@ define([
 
     var currentPanel = false;
     var isAnimating = false;
-    // hold for potential future use.
-    //var transitionIn = 'panel-move-from-right';
-    //var transitionOut = 'panel-move-to-left';
 
-    var animationEndEvent = 'webkitTransitionEnd';
+    var transitionIn = 'panel-move-from-right';
+    var transitionOut = 'panel-move-to-left';
+
+    var animationEndEvent = 'webkitAnimationEnd';
     var $leftMenu = $('.cbp-vimenu');
     var $submenus = $leftMenu.find('a[data-tag]');
 
@@ -51,18 +51,30 @@ define([
         inPanel.viewWillAppear();
         outPanel.viewWillDisappear();
 
-        outPanel.$view.removeClass('current');
+        outPanel.$view
+        .addClass(transitionOut)
+        .on(animationEndEvent, function(){
+            outPanel.$view
+            .off(animationEndEvent)
+            .removeClass('current')
+            .removeClass(transitionOut);
+        });
+
         currentPanel = inPanel;
 
         inPanel.$view
         .addClass('current')
+        .addClass(transitionIn)
         .on(animationEndEvent, function(){
-            inPanel.$view.off(animationEndEvent);
+            inPanel.$view
+            .off(animationEndEvent)
+            .removeClass(transitionIn);
             onAnimationEnd(outPanel, inPanel);
         });
     }
 
     function onAnimationEnd(outPanel, inPanel) {
+        console.log('onAnimationEnd');
         isAnimating = false;
     }
 

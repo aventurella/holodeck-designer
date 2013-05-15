@@ -5,10 +5,17 @@
     <title></title>
     <link rel="stylesheet" href="resources/css/designer.css">
     <script src="resources/js/designer.js"></script>
+    <script id="light-template" type="text/x-mustache">
+        <li class="bridge-light" draggable="true">
+            <div class="bridge-light-view">
+                <label>{{ name }}</label>
+            </div>
+        </li>
+    </script>
 </head>
 <body>
-    <div class="row-fluid">
-        <div class="span1">
+    <div class="row">
+        <div>
             <div class="column menu">
                 <ul class="cbp-vimenu">
                     <li><a href="#" class="menu-logo">Logo</a></li>
@@ -21,47 +28,65 @@
                 </ul>
             </div>
         </div>
-        <div class="span4 row">
+        <div class="row">
             <div class="span4 column controls">
                 <ul>
                     <li class="panel hue-lights current">
-                        <fieldset>
-                            <legend>Hues</legend>
-                            <form>
-                                <label>Select Hue</label>
-                                <select name="host">
-                                <select>
-                                <label>Username</label>
-                                <input type="text" name="username" placeholder="Username">
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <div class="btn">Load Lights</div>
+                        <div class="view">
+                            <fieldset>
+                                <legend>Hues</legend>
+                                <form>
+                                    <label>Select Hue</label>
+                                    <select name="host">
+                                    <select>
+                                    <label>Username</label>
+                                    <input type="text" name="username" placeholder="Username">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="btn">Load Lights</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </fieldset>
-                        <ul id="sortable1" class="connectedSortable">
-                            <li class="ui-state-default">Item 1</li>
-                            <li class="ui-state-default">Item 2</li>
-                            <li class="ui-state-default">Item 3</li>
-                            <li class="ui-state-default">Item 4</li>
-                            <li class="ui-state-default">Item 5</li>
-                        </ul>
+                                </form>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Available Lights</legend>
+                                <ul id="available-lights">
+
+                                </ul>
+                            </fieldset>
+                        </div>
                     </li>
                     <li class="panel hue-control">
-                        Testing
+                        <div class="view">
+                            <fieldset>
+                                <legend>Control</legend>
+                                <form>
+                                    <label>Select Hue</label>
+                                    <select name="host">
+                                    <select>
+                                    <label>Username</label>
+                                    <input type="text" name="username" placeholder="Username">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="btn">Load Lights</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Available Lights</legend>
+                                <label>Select Light</label>
+                                <select name="light">
+                                <select>
+                            </fieldset>
+                        </div>
                     </li>
                 </ul>
 
             </div>
         </div>
-        <div class="span4 palate">
-            <ul id="sortable2" class="connectedSortable">
-                <li class="ui-state-highlight">Item 1</li>
-                <li class="ui-state-highlight">Item 2</li>
-                <li class="ui-state-highlight">Item 3</li>
-                <li class="ui-state-highlight">Item 4</li>
-                <li class="ui-state-highlight">Item 5</li>
+        <div id="scene-designer">
+            <ul id="scene-lights-list">
             </ul>
         </div>
 

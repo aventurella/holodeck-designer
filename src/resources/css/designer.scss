@@ -26,7 +26,7 @@ body{
 }
 
 .cbp-vimenu {
-    background: #252525;
+    background: #1d1d1d;
     z-index:999;
 }
 
@@ -57,15 +57,51 @@ body{
     cursor: move;
 }
 
+.bridge-light{
+    background: #2f2f2f;
+    margin-bottom:1px;
+    @extend .drag;
+
+    .bridge-light-view{
+        padding:10px 0 10px 0;
+        overflow:hidden;
+
+        label{
+            font-size:16px;
+            cursor: move;
+        }
+
+        label:before {
+            font-family: 'holodeck';
+            font-size:20px;
+            padding:0 10px 0 10px;
+
+            content: '\61';
+        }
+    }
+}
+
+#scene-designer{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:370px;
+}
+
+.droptarget{
+    border:2px solid #47a3da;
+}
+
 .controls{
     left:70px;
     margin-left:0;
+    overflow: hidden;
 
     ul{
         margin:0;
         padding:0;
         list-style-type:none;
-        overflow:hidden;
     }
 
     .panel{
@@ -76,24 +112,24 @@ body{
         position:absolute;
         color: #efefef;
         visibility:hidden;
-        padding-left: 10px;
         -webkit-backface-visibility: hidden;
-        -webkit-transform: translate3d(-1000px, 0, 0);
-        -webkit-transition: all 0.5s;
+        -webkit-transform: translate3d(0, 0, 0);
+
         &.current{
             visibility: visible;
-            -webkit-transform: translate3d(0, 0, 0);
-            -webkit-transition-delay: 0s;
-
         }
 
 
         &.hue-lights{
-            background-color:#00435e;
+            background-color:#252525;
         }
 
         &.hue-control{
-            background-color:#5e0058;
+            background-color:#252525;
+        }
+
+        .view{
+            padding: 0 10px 0 10px;
         }
 
         legend{
@@ -107,48 +143,3 @@ body{
 .ui-sortable-helper{
     color:#ff0000;
 }
-
-
-/*
-.column-left{
-    @extend .no-select;
-
-    position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    background-color: #efefef;
-
-    //background-color:#252e31;
-    //background-color:#24293c;
-    color:#efefef;
-    height:100%;
-
-    legend{
-        color:#efefef;
-        border-bottom:none;
-    }
-    .row-fluid{
-        padding-left:10px;
-    }
-
-    select{
-        outline: none;
-    }
-
-    .light{
-        background-color:#fff;
-        color:#252525;
-        padding-top:5px;
-        margin-bottom:3px;
-    }
-}
-
-.column-right{
-    height:100%;
-    position: absolute;
-    top:0;
-    bottom:0;
-    right:0;
-}
-*/

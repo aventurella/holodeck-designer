@@ -1,15 +1,12 @@
 require([
-    'jquery',
-    'underscore',
-    'mustache',
     'src/resources/js/utils/menu',
-    'src/resources/js/utils/dnd',
+    'src/resources/js/utils/scene-designer',
     'bootstrap',
-    'requireLib',
-    'jqueryui',
-], function($, _, Mustache, MainMenu, DragAndDrop){
+    'requireLib'
+], function(MainMenu, SceneDesigner){
 
-    var mainMenu = MainMenu
+    var mainMenu = MainMenu;
+    var sceneDesigner = SceneDesigner;
     // var currentPanel = false;
     // var panelContext = false;
     // var transitionIn = 'panel-move-from-right';
