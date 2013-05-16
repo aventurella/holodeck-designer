@@ -12,7 +12,28 @@ define([], function(){
              'name': 'Living Room'},
 
             {'number': 3,
-             'name': 'Lucy\'s Room'}]);
+             'name': 'Lucy\'s Room'},
+
+            {'number': 4,
+             'name': 'Ollie\'s Room'},
+
+            {'number': 5,
+             'name': 'Nook'},
+
+            {'number': 6,
+             'name': 'Truman\'s Room'},
+
+            {'number': 7,
+             'name': 'Robofish\'s Room'},
+
+            {'number': 8,
+             'name': 'Master Bedroom'},
+
+            {'number': 9,
+             'name': 'Kitchen'},
+
+            {'number': 10,
+             'name': 'Laundry Room'}]);
     }
 
     function getHues(callback){

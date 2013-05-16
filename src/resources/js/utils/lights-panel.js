@@ -3,8 +3,8 @@ define([
     'underscore',
     'mustache',
     'src/resources/js/hue/hue',
-    'src/resources/js/hue/cocoa'
-    //'src/resources/js/hue/mock'
+    //'src/resources/js/hue/cocoa'
+    'src/resources/js/hue/mock'
 ], function($, _, Mustache, HueClient, HueResource){
 
     var $view = false;

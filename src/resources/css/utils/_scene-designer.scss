@@ -1,16 +1,18 @@
 .scene-light{
     background: #2f2f2f;
-    color: #efefef;
-    margin-bottom:1px;
+    color: #cacaca;
     width:421px;
     margin: 0 auto;
-    margin-bottom:1px;
+    margin-bottom:-1px;
     position:relative;
     overflow:hidden;
     cursor: default;
 
     .scene-light-view{
         padding:15px 0 15px 0;
+        border: 1px solid #1a1a1a;
+        -webkit-box-sizing: border-box;
+        box-sizing:border-box;
 
         label{
             &.name{
@@ -34,14 +36,14 @@
 
     .color-view{
         position:absolute;
-        top:0;
+        top:1px;
         height:84px;
         width:100%;
-        background: #252525;
+        background: #2f2f2f;
 
         -webkit-backface-visibility: hidden;
         -webkit-transform: translate3d(0, 0, 0);
-        -webkit-transform: translateX(337px);
+        -webkit-transform: translateX(336px);
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out;
 
@@ -53,7 +55,7 @@
             background-color: hsl(0, 100%, 50%);
 
             &.droptarget{
-                border:1px dashed #fff;
+                border:1px solid #fff;
                 -webkit-box-sizing: border-box;
                 box-sizing:border-box;
             }
@@ -101,7 +103,7 @@
                     line-height:18px;
                     height:18px;
                     margin-left: 5px;
-                    color: #efefef;
+                    color: #cacaca;
                     background-color: #2f2f2f;
                     border-color:#000;
                     text-align: center;
@@ -118,20 +120,37 @@
 }
 
 #scene-designer{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:370px;
+
+    #drop-notification{
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        position: absolute;
+
+        &.droptarget{
+            border:3px solid #47a3da;
+            -webkit-box-sizing: border-box;
+            box-sizing:border-box;
+        }
+    }
+
     .title{
         text-align: center;
         padding: 20px 0;
 
         label{
             font-size:24px;
+            color: #cacaca;
         }
     }
 
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:370px;
+
 
     ul{
         margin:0;

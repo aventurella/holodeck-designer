@@ -25,12 +25,14 @@ define([
 
     function onLightEnter(e){
         if (isBridgeLight(e)){
-            $view.addClass('droptarget');
+            $('#drop-notification').addClass('droptarget');
+            //$view.addClass('droptarget');
         }
     }
 
     function onLightLeave(e){
-        $view.removeClass('droptarget');
+        //$view.removeClass('droptarget');
+        $('#drop-notification').removeClass('droptarget');
     }
 
     function isBridgeLight(e){
@@ -58,7 +60,7 @@ define([
         }
 
         e.preventDefault();
-        $view.removeClass('droptarget');
+        $('#drop-notification').removeClass('droptarget');
 
         var dataTransfer = e.originalEvent.dataTransfer;
         var data = JSON.parse(

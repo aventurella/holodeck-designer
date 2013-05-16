@@ -1,8 +1,8 @@
 define([
     'jquery',
     'src/resources/js/hue/hue',
-    'src/resources/js/hue/cocoa'
-    //'src/resources/js/hue/mock'
+    //'src/resources/js/hue/cocoa'
+    'src/resources/js/hue/mock'
 ], function($, HueClient, HueResource){
 
     var $view = $('.panel.hue-control');
@@ -115,7 +115,7 @@ define([
 
         registerSliderActions();
 
-        updateDragImage(HSBValue());
+        updateDragImage(HSLValue());
 
         $colorBlock.on('dragstart', colorStartedDragging);
         $colorBlock.on('dragend', colorStoppedDragging);

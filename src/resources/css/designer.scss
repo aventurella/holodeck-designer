@@ -30,7 +30,7 @@ label{
 }
 
 body{
-    background-color: #ededed;
+    background-color: #1d1d1d;
 }
 
 .cbp-vimenu {
@@ -66,11 +66,6 @@ body{
 }
 
 
-
-.droptarget{
-    border:2px solid #47a3da;
-}
-
 .controls{
     left:70px;
     margin-left:0;
@@ -88,7 +83,7 @@ body{
         bottom:0;
         width:100%;
         position:absolute;
-        color: #efefef;
+        color: #cecece;
         visibility:hidden;
         -webkit-backface-visibility: hidden;
         -webkit-transform: translate3d(0, 0, 0);
@@ -102,7 +97,7 @@ body{
         }
 
         legend{
-            color:#efefef;
+            color:#cecece;
             border-bottom:none;
         }
     }

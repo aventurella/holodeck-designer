@@ -68,10 +68,10 @@ define([
 
     function onHueSliderChanged(e){
         var ctx = e.data.context;
-        console.log('HueSliderCHanged');
+
         ctx.$hInput.val(ctx.$hSlider.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -81,7 +81,7 @@ define([
 
         ctx.$sInput.val(ctx.$sSlider.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -91,7 +91,7 @@ define([
 
         ctx.$vInput.val(ctx.$vSlider.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -101,7 +101,7 @@ define([
 
         ctx.$hSlider.val(ctx.$hInput.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -111,7 +111,7 @@ define([
 
         ctx.$sSlider.val(ctx.$sInput.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -121,7 +121,7 @@ define([
 
         ctx.$vSlider.val(ctx.$vInput.val());
 
-        colors = ctx.HSLValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
