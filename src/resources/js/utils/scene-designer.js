@@ -6,6 +6,7 @@ define([
 ], function($, _ , Mustache, SceneLight){
 
     var $view = false;
+    var $dropMask = false;
     var $sceneLights = false;
     //var lightTemplate = false;
     var currentLights = {};
@@ -13,9 +14,11 @@ define([
 
     function init(){
         $view = $('#scene-designer');
+        $dropMask = $('#drop-notification');
+
         $view.on('dragenter', onLightEnter);
-        $view.on('dragleave', onLightLeave);
-        $view.on('drop', onLightDrop);
+        $dropMask.on('dragleave', onLightLeave);
+        $dropMask.on('drop', onLightDrop);
         $view.on('dragover', onLightOver);
 
         $sceneLights = $('#scene-lights-list');
@@ -25,14 +28,13 @@ define([
 
     function onLightEnter(e){
         if (isBridgeLight(e)){
-            $('#drop-notification').addClass('droptarget');
-            //$view.addClass('droptarget');
+            $dropMask.addClass('droptarget');
         }
     }
 
     function onLightLeave(e){
         //$view.removeClass('droptarget');
-        $('#drop-notification').removeClass('droptarget');
+        $dropMask.removeClass('droptarget');
     }
 
     function isBridgeLight(e){

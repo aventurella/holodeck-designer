@@ -132,11 +132,14 @@
         bottom:0;
         left:0;
         position: absolute;
+        display: none;
+        z-index:1;
 
         &.droptarget{
             border:3px solid #47a3da;
             -webkit-box-sizing: border-box;
             box-sizing:border-box;
+            display:block;
         }
     }
 
@@ -147,6 +150,16 @@
         label{
             font-size:24px;
             color: #cacaca;
+        }
+
+        input[type="text"]{
+            background-color: #1d1d1d;
+            border-color: #cacaca;
+            line-height:26px;
+            height:26px;
+            text-align: center;
+            color: #cacaca;
+            font-size:24px;
         }
     }
 
