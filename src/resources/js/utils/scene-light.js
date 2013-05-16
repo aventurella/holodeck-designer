@@ -71,7 +71,7 @@ define([
         console.log('HueSliderCHanged');
         ctx.$hInput.val(ctx.$hSlider.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -81,7 +81,7 @@ define([
 
         ctx.$sInput.val(ctx.$sSlider.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -91,7 +91,7 @@ define([
 
         ctx.$vInput.val(ctx.$vSlider.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -101,7 +101,7 @@ define([
 
         ctx.$hSlider.val(ctx.$hInput.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -111,7 +111,7 @@ define([
 
         ctx.$sSlider.val(ctx.$sInput.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -121,7 +121,7 @@ define([
 
         ctx.$vSlider.val(ctx.$vInput.val());
 
-        colors = ctx.HSBValue();
+        colors = ctx.HSLValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -182,6 +182,33 @@ define([
         this.$colorView.removeClass('color-move-to-left');
     };
 
+    SceneLight.prototype.HSLValue = function() {
+        color = this.HSBValue();
+
+
+        // we are converting to a value between 0 - 1
+
+        // 0 - 65535
+        var hue = (color.hue * 182.028) / 65535;
+
+        // 0 - 255
+        var sat = color.sat / 100;
+
+        // 0 - 255
+        var val = color.bri / 100;
+
+        // https://gist.github.com/xpansive/1337890
+
+        var nh = hue;
+        var ns = sat*val/((hue=(2-sat)*val)<1?hue:2-hue);
+        var nv = hue/2;
+
+        return {
+            'hue': (nh * 65535) / 182.028,
+            'sat': ns * 100,
+            'bri': nv * 100};
+    };
+
     SceneLight.prototype.HSBValue = function() {
         var h = this.$hSlider.val();
         var s = this.$sSlider.val();
@@ -201,6 +228,12 @@ define([
         this.$hInput.val(h);
         this.$sInput.val(s);
         this.$vInput.val(b);
+
+        var hsl = this.HSLValue();
+
+        h = hsl.hue;
+        s = hsl.sat;
+        b = hsl.bri;
 
         this.$colorBlock.css({'background-color': 'hsl(' + h + ', ' + s + '%, ' + b + '%)'});
     };

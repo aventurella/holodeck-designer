@@ -14,9 +14,14 @@ define([], function(){
         return resource.getHues(callback);
     }
 
+    function setLightStateForId(account, data, lightId){
+        resource.setLightStateForId(account, data, lightId);
+    }
+
     return {
         'init': init,
         'getLights': getLights,
-        'getHues': getHues
+        'getHues': getHues,
+        'setLightStateForId': setLightStateForId
     };
 });

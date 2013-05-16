@@ -10,8 +10,18 @@ define([], function(){
         return _bridge.hues(callback);
     }
 
+    function setLightStateForId(account, data, lightId){
+
+        data.hue = data.hue * 182.028;
+        data.sat = (data.sat / 100) * 255;
+        data.bri = (data.bri / 100) * 255;
+
+        _bridge.setLightStateForId(account, data, lightId);
+    }
+
     return {
         'getLights': getLights,
-        'getHues': getHues
+        'getHues': getHues,
+        'setLightStateForId': setLightStateForId
     };
 });

@@ -1,8 +1,8 @@
 define([
     'jquery',
     'src/resources/js/hue/hue',
-    //'src/resources/js/hue/cocoa'
-    'src/resources/js/hue/mock'
+    'src/resources/js/hue/cocoa'
+    //'src/resources/js/hue/mock'
 ], function($, HueClient, HueResource){
 
     var $view = $('.panel.hue-control');
@@ -17,6 +17,8 @@ define([
     var $vInput = false;
 
     var $dragImage = false;
+
+    var debounceLightTimeout;
 
     function init(){
         $view = $('.panel.hue-control');
@@ -117,6 +119,12 @@ define([
 
         $colorBlock.on('dragstart', colorStartedDragging);
         $colorBlock.on('dragend', colorStoppedDragging);
+        $availableLights.on('change', selectedLightDidChange);
+    }
+
+    function selectedLightDidChange(e){
+        var hsbColor = HSBValue();
+        updateLightWithHSB(hsbColor);
     }
 
     function registerSliderActions(){
@@ -127,6 +135,32 @@ define([
         $hInput.on('blur', onHueInputChanged);
         $sInput.on('blur', onSatInputChanged);
         $vInput.on('blur', onValInputChanged);
+    }
+
+    function HSLValue(){
+        color = HSBValue();
+
+        // we are converting to a value between 0 - 1
+
+        // 0 - 65535
+        var hue = (color.hue * 182.028) / 65535;
+
+        // 0 - 255
+        var sat = color.sat / 100;
+
+        // 0 - 255
+        var val = color.bri / 100;
+
+        // https://gist.github.com/xpansive/1337890
+
+        var nh = hue;
+        var ns = sat*val/((hue=(2-sat)*val)<1?hue:2-hue);
+        var nv = hue/2;
+
+        return {
+            'hue': (nh * 65535) / 182.028,
+            'sat': ns * 100,
+            'bri': nv * 100};
     }
 
     function HSBValue() {
@@ -155,59 +189,96 @@ define([
         var b = color.bri;
 
         $colorBlock.css({'background-color': 'hsl(' + h + ', ' + s + '%, ' + b + '%)'});
-        updateDragImage(color);
+    }
+
+    function updateLightWithHSB(color) {
+
+        var account = getHueCredentials();
+        var index = parseInt($availableLights.val(), 10);
+
+        if (debounceLightTimeout){
+            clearTimeout(debounceLightTimeout);
+        } else {
+            // the first pass, so we execute it right away
+            // to let the user know something is up.
+            // hue.setLightStateForId(account, color, index);
+        }
+
+        debounceLightTimeout = setTimeout(function(){
+            hue.setLightStateForId(account, color, index);
+        },  100);
     }
 
     function onHueSliderChanged(e){
         $hInput.val($hSlider.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     function onSatSliderChanged(e){
-        var colors;
 
         $sInput.val($sSlider.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     function onValSliderChanged(e){
-        var colors;
 
         $vInput.val($vSlider.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     function onHueInputChanged(e){
-        var colors;
+        var color;
 
         $hSlider.val($hInput.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     function onSatInputChanged(e){
-        var colors;
 
         $sSlider.val($sInput.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     function onValInputChanged(e){
-        var colors;
 
         $vSlider.val($vInput.val());
 
-        colors = HSBValue();
-        updateColorWithHSB(colors);
+        var hsbColor = HSBValue();
+        var hslColor = HSLValue();
+
+        updateColorWithHSB(hslColor);
+        updateDragImage(hslColor);
+        updateLightWithHSB(hsbColor);
     }
 
     init();

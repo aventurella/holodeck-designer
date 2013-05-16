@@ -3,6 +3,7 @@ define([], function(){
     var _bridge = window.JSHue;
 
     function getLights(account, callback){
+        console.log('getLights');
         callback([
             {'number': 1,
              'name': 'Clark\'s Room'},
@@ -15,7 +16,7 @@ define([], function(){
     }
 
     function getHues(callback){
-
+        console.log('getHues');
         callback([
             {'hueId': 1,
             'host': '127.0.0.1',
@@ -33,8 +34,14 @@ define([], function(){
             'username': ''}]);
     }
 
+    function setLightStateForId(account, data, lightId){
+        console.log('setLightStateForId');
+        console.log(account, data, lightId);
+    }
+
     return {
         'getLights': getLights,
-        'getHues': getHues
+        'getHues': getHues,
+        'setLightStateForId': setLightStateForId
     };
 });
