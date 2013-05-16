@@ -22,7 +22,6 @@ define([
         $view.on('dragover', onLightOver);
 
         $sceneLights = $('#scene-lights-list');
-
         //lightTemplate = Mustache.compile($('#scene-light-template').html());
     }
 
