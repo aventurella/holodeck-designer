@@ -1,0 +1,29 @@
+.panel{
+
+    &.hue-lights{
+        background-color:#252525;
+
+        .bridge-light{
+            background: #2f2f2f;
+            margin-bottom:1px;
+            @extend .drag;
+
+            .bridge-light-view{
+                padding:10px 0 10px 0;
+
+                label{
+                    font-size:16px;
+                    cursor: move;
+                }
+
+                label:before {
+                    font-family: 'holodeck';
+                    font-size:20px;
+                    padding:0 10px 0 10px;
+
+                    content: '\61';
+                }
+            }
+        }
+    }
+}

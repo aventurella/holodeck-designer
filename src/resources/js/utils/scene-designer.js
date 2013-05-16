@@ -24,25 +24,39 @@ define([
     }
 
     function onLightEnter(e){
-        $view.addClass('droptarget');
+        if (isBridgeLight(e)){
+            $view.addClass('droptarget');
+        }
     }
 
     function onLightLeave(e){
         $view.removeClass('droptarget');
     }
 
+    function isBridgeLight(e){
+        var dataTransfer = e.originalEvent.dataTransfer;
+        var status = false;
+
+        if (dataTransfer.types){
+            status = dataTransfer.types[0] == 'application/x-bridge-light';
+        }
+
+        return status;
+    }
+
     function onLightOver(e){
 
-        var dataTransfer = e.originalEvent.dataTransfer;
-        var isBridgeLight = dataTransfer.types[0] == 'application/x-bridge-light';
-
-        if (isBridgeLight){
+        if (isBridgeLight(e)){
             e.preventDefault();
             e.originalEvent.dataTransfer.dropEffect = 'copy';
         }
     }
 
     function onLightDrop(e){
+        if (!isBridgeLight(e)){
+            return;
+        }
+
         e.preventDefault();
         $view.removeClass('droptarget');
 

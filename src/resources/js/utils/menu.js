@@ -74,7 +74,6 @@ define([
     }
 
     function onAnimationEnd(outPanel, inPanel) {
-        console.log('onAnimationEnd');
         isAnimating = false;
     }
 

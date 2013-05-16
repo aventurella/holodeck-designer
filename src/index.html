@@ -106,9 +106,36 @@
                             <fieldset>
                                 <legend>Available Lights</legend>
                                 <label>Select Light</label>
-                                <select name="light">
+                                <select id="available-lights-select" name="light">
                                 <select>
                             </fieldset>
+                            <div>
+                                <div class="color-view">
+                                    <div class="user-color">
+                                        <div class="color-block" draggable="true"></div>
+                                        <img class="drag-image">
+                                    </div>
+                                    <div class="color-controls">
+                                        <div class="control">
+                                            <label>H:</label>
+                                            <input type="range" class="hue-slider" name="h-slider" value="0" min="0" max="360">
+                                            <input type="text" name="h-input" value="0" maxlength="3">
+                                        </div>
+
+                                        <div class="control">
+                                            <label>S:</label>
+                                            <input type="range" name="s-slider" value="100" min="0" max="100">
+                                            <input type="text" name="s-input" value="100" maxlength="3">
+                                        </div>
+
+                                        <div class="control">
+                                            <label>V:</label>
+                                            <input type="range" name="v-slider" value="50" min="0" max="100">
+                                            <input type="text" name="v-input" value="50" maxlength="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 </ul>

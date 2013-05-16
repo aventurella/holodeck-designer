@@ -5,6 +5,54 @@ define([
 
     lightTemplate = Mustache.compile($('#scene-light-template').html());
 
+    function isDragColor(e){
+
+        var dataTransfer = e.originalEvent.dataTransfer;
+        var status = false;
+
+        if (dataTransfer.types){
+            status = dataTransfer.types[0] == 'application/x-light-color';
+        }
+
+        return status;
+    }
+
+    function onColorEnter(e){
+        var ctx = e.data.context;
+
+        if (isDragColor(e)){
+            ctx.$colorBlock.addClass('droptarget');
+        }
+    }
+
+    function onColorLeave(e){
+        var ctx = e.data.context;
+        ctx.$colorBlock.removeClass('droptarget');
+    }
+
+    function onColorOver(e){
+        var ctx = e.data.context;
+
+        if (isDragColor(e)){
+            e.preventDefault();
+            e.originalEvent.dataTransfer.dropEffect = 'copy';
+        }
+    }
+
+    function onColorDrop(e){
+        var ctx = e.data.context;
+        e.preventDefault();
+        ctx.$colorBlock.removeClass('droptarget');
+
+        var dataTransfer = e.originalEvent.dataTransfer;
+        var data = JSON.parse(
+            dataTransfer.getData('application/x-light-color'));
+
+        ctx.updateColorWithHSB(data);
+
+    }
+
+    // ------- //
 
     function onColorBlockClicked(e){
         var ctx = e.data.context;
@@ -20,9 +68,10 @@ define([
 
     function onHueSliderChanged(e){
         var ctx = e.data.context;
+        console.log('HueSliderCHanged');
         ctx.$hInput.val(ctx.$hSlider.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -32,7 +81,7 @@ define([
 
         ctx.$sInput.val(ctx.$sSlider.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -42,7 +91,7 @@ define([
 
         ctx.$vInput.val(ctx.$vSlider.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -52,7 +101,7 @@ define([
 
         ctx.$hSlider.val(ctx.$hInput.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -62,7 +111,7 @@ define([
 
         ctx.$sSlider.val(ctx.$sInput.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -72,7 +121,7 @@ define([
 
         ctx.$vSlider.val(ctx.$vInput.val());
 
-        colors = ctx.hsbValue();
+        colors = ctx.HSBValue();
         ctx.updateColorWithHSB(colors);
     }
 
@@ -104,23 +153,10 @@ define([
         this.$sInput.on('blur', {'context': this}, onSatInputChanged);
         this.$vInput.on('blur', {'context': this}, onValInputChanged);
 
-        // <div class="control">
-        //                     <label>H:</label>
-        //                     <input type="range" class="hue-slider" name="h-slider" min="0" max="360">
-        //                     <input type="text" name="h-input" value="0" maxlength="3">
-        //                 </div>
-
-        //                 <div class="control">
-        //                     <label>S:</label>
-        //                     <input type="range" name="s-slider" value="0" min="0" max="100">
-        //                     <input type="text" name="s-input" value="0" maxlength="3">
-        //                 </div>
-
-        //                 <div class="control">
-        //                     <label>V:</label>
-        //                     <input type="range" name="v-slider" value="0" min="0" max="100">
-        //                     <input type="text" name="v-input" value="0" maxlength="3">
-        //                 </div>
+        this.$colorBlock.on('dragenter', {'context': this}, onColorEnter);
+        this.$colorBlock.on('dragover', {'context': this}, onColorOver);
+        this.$colorBlock.on('dragleave', {'context': this}, onColorLeave);
+        this.$colorBlock.on('drop', {'context': this}, onColorDrop);
     };
 
     SceneLight.prototype.shouldTransitionToColorControl = function() {
@@ -146,7 +182,7 @@ define([
         this.$colorView.removeClass('color-move-to-left');
     };
 
-    SceneLight.prototype.hsbValue = function() {
+    SceneLight.prototype.HSBValue = function() {
         var h = this.$hSlider.val();
         var s = this.$sSlider.val();
         var b = this.$vSlider.val();
@@ -159,25 +195,15 @@ define([
         var s = colors.sat;
         var b = colors.bri;
 
+        this.$hSlider.val(h);
+        this.$sSlider.val(s);
+        this.$vSlider.val(b);
+        this.$hInput.val(h);
+        this.$sInput.val(s);
+        this.$vInput.val(b);
+
         this.$colorBlock.css({'background-color': 'hsl(' + h + ', ' + s + '%, ' + b + '%)'});
     };
-
-
-    // etc.
-
-
-    // var $view = $('.panel.hue-control');
-
-    // function init(light){
-
-    //     viewDidLoad()
-    // }
-
-    // function viewWillAppear(){}
-    // function viewWillDisappear(){}
-    // function viewDidLoad(){}
-
-    // init();
 
     return SceneLight;
 });
