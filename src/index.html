@@ -51,6 +51,7 @@
                     <li><a href="#" class="menu-logo">Logo</a></li>
                     <li><a href="#" class="menu-light" data-tag='hue-lights'>Lights</a></li>
                     <li><a href="#" class="menu-gear" data-tag='hue-control'>Control</a></li>
+                    <li><a href="#" class="menu-photos" data-tag='hue-scenes'>Scenes</a></li>
 
                     <!-- Example for active item:
                     <li class="cbp-vicurrent"><a href="#" class="icon-pencil">Pencil</a></li>
@@ -138,18 +139,33 @@
                             </div>
                         </div>
                     </li>
+                    <li class="panel hue-scenes">
+                        <div class="view">
+                            <fieldset>
+                                <legend>Scenes</legend>
+                                <form>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="btn">Export Scene</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+                    </li>
                 </ul>
-
             </div>
         </div>
         <div id="scene-designer">
             <div id="drop-notification"></div>
-            <div class="row title">
+            <div class="row scene-title">
                 <input type="text" name='scene-title'>
                 <label>Untitled Scene</label>
             </div>
-            <ul id="scene-lights-list">
-            </ul>
+            <div id="scene-lights-list-container">
+                <ul id="scene-lights-list">
+                </ul>
+            </div>
         </div>
     </div>
 </body>

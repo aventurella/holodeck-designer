@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'src/resources/js/utils/lights-panel',
-    'src/resources/js/utils/control-panel'
-], function($, _, LightsPanel, ControlPanel){
+    'src/resources/js/utils/control-panel',
+    'src/resources/js/utils/scenes-panel'
+], function($, _, LightsPanel, ControlPanel, ScenesPanel){
 
     var currentPanel = false;
     var isAnimating = false;
@@ -81,7 +82,8 @@ define([
 
         data = {
             'hue-lights': LightsPanel,
-            'hue-control': ControlPanel
+            'hue-control': ControlPanel,
+            'hue-scenes': ScenesPanel
         };
 
         return data[tag] || false;
@@ -95,7 +97,8 @@ define([
 
         'panels': {
             'lightsPanel': LightsPanel,
-            'controlPanel': ControlPanel
+            'controlPanel': ControlPanel,
+            'scenesPanel': ScenesPanel
         }
     };
 });

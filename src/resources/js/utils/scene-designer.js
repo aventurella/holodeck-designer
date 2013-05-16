@@ -8,7 +8,8 @@ define([
     var $view = false;
     var $dropMask = false;
     var $sceneLights = false;
-    //var lightTemplate = false;
+    var $titleLabel = false;
+    var $titleField = false;
     var currentLights = {};
 
 
@@ -21,8 +22,34 @@ define([
         $dropMask.on('drop', onLightDrop);
         $view.on('dragover', onLightOver);
 
+
         $sceneLights = $('#scene-lights-list');
-        //lightTemplate = Mustache.compile($('#scene-light-template').html());
+        $titleLabel = $view.find('.scene-title label');
+        $titleField = $view.find('.scene-title input[type="text"]');
+
+        $titleLabel.on('click', onSceneTitleClicked);
+        $titleField.on('blur', onSceneTitleBlur);
+        $titleField.val($titleLabel.text());
+
+    }
+
+    function onSceneTitleClicked(e){
+        $titleField.val($titleLabel.text());
+        $titleLabel.hide();
+        $titleField.show();
+        $titleField.focus();
+    }
+
+    function onSceneTitleBlur(e){
+        var value = $titleField.val();
+
+        if (value.length === 0){
+            value = 'Untitled Scene';
+        }
+
+        $titleLabel.text(value);
+        $titleField.hide();
+        $titleLabel.show();
     }
 
     function onLightEnter(e){
@@ -79,31 +106,32 @@ define([
         var light = new SceneLight(model);
 
         currentLights[model.number] = light;
-        //registerLight(light);
         $sceneLights.append(light.$view);
     }
 
-    // function registerLight(light){
-    //     light.find('.color-block').on('click', light, onColorBlockClicked);
-    // }
+    function getCurrentScene(){
+        data = {};
+        data.label = $titleField.val();
+        data.lights = [];
 
-    function onColorBlockClicked(e){
-        console.log(e);
-        console.log(e.data);
+        _.each(currentLights, function(value, index){
 
-    }
+            var hsbColor = value.HSBValue();
+            model = {'number': value.model.number,
+                     'hue': hsbColor.hue,
+                     'sat': hsbColor.sat,
+                     'bri': hsbColor.bri};
 
-    function transitionToColorControl(light){
+            data.lights.push(model);
+        });
 
-    }
-
-    function transitionFromColorControl(light){
-
+        return data;
     }
 
     init();
 
     return {
-        '$view': $view
+        '$view': $view,
+        'getCurrentScene': getCurrentScene
     };
 });

@@ -120,6 +120,8 @@
 }
 
 #scene-designer{
+    @extend .no-select;
+    border-left:1px solid #1a1a1a;
     position:absolute;
     top:0;
     right:0;
@@ -143,31 +145,51 @@
         }
     }
 
-    .title{
+    .scene-title{
         text-align: center;
         padding: 20px 0;
 
         label{
             font-size:24px;
             color: #cacaca;
+            padding-top: 8px;
+            padding-bottom: 3px;
         }
 
         input[type="text"]{
+            @extend .input-xxlarge;
+
             background-color: #1d1d1d;
-            border-color: #cacaca;
+            border-color: #1d1d1d;
             line-height:26px;
             height:26px;
             text-align: center;
             color: #cacaca;
             font-size:24px;
+            font-weight:600;
+            display:none;
+            margin-bottom:0px;
+        }
+
+        input[type="text"]:focus{
+            border-color: rgba(82, 168, 236, 0.8);
         }
     }
 
 
 
-    ul{
+    #scene-lights-list-container{
+        margin: 0 auto;
+        width:421px;
+        border:2px solid #1a1a1a;
+    }
+
+    #scene-lights-list{
         margin:0;
         padding:0;
         list-style-type:none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 450px;
     }
 }

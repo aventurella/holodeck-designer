@@ -3,6 +3,12 @@
     &.hue-lights{
         background-color:#252525;
 
+        #available-lights{
+            height:300px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
         .bridge-light{
             background: #2f2f2f;
             margin-bottom:1px;

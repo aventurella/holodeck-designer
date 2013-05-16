@@ -6,6 +6,7 @@
 @import "utils/sliders";
 @import "utils/panel-control";
 @import "utils/panel-lights";
+@import "utils/panel-scenes";
 @import "utils/scene-designer";
 
 body{
@@ -14,6 +15,16 @@ body{
 
 input{
     font-family: Lucida Grande, sans-serif;
+}
+
+input[type="text"]:focus{
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border-color:none;
+}
+
+select:focus{
+    outline: 0;
 }
 
 .no-select{
@@ -79,6 +90,7 @@ body{
 
     .panel{
         z-index:1;
+        border-left:1px solid #1a1a1a;
         top:0;
         bottom:0;
         width:100%;
