@@ -2,17 +2,21 @@ define([
     'jquery',
     'underscore',
     'mustache',
-    'src/resources/js/hue/hue',
-    //'src/resources/js/hue/cocoa'
-    'src/resources/js/hue/mock',
+    'src/resources/js/holodeck/holodeck',
+    'src/resources/js/holodeck/cocoa',
+    //'src/resources/js/holodeck/cocoa',
     'src/resources/js/utils/scene-designer'
-], function($, _, Mustache, HueClient, HueResource, Designer){
+], function($, _, Mustache, HolodeckClient, HolodeckResource, Designer){
 
     var $view = $('.panel.hue-scenes');
     var $exportScene = false;
+    var holodeck = false;
 
     function init(){
         $exportScene = $view.find('.controls .btn');
+
+        HolodeckClient.init(HolodeckResource);
+        holodeck = HolodeckClient;
         registerActions();
     }
 
@@ -21,15 +25,13 @@ define([
     }
 
     function onExportSceneClicked(e){
-        console.log('export');
         console.log(Designer.getCurrentScene());
+        holodeck.saveSceneToFile(Designer.getCurrentScene());
     }
 
     function viewWillAppear(){}
     function viewWillDisappear(){}
-    function viewDidLoad(){
-
-    }
+    function viewDidLoad(){}
 
     init();
 
