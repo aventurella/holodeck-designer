@@ -3,8 +3,8 @@ define([
     'underscore',
     'mustache',
     'src/resources/js/holodeck/holodeck',
-    'src/resources/js/holodeck/cocoa',
-    //'src/resources/js/holodeck/mock',
+    //'src/resources/js/holodeck/cocoa',
+    'src/resources/js/holodeck/mock',
     'src/resources/js/utils/scene-designer',
     'src/resources/js/utils/scene-item'
 ], function($, _, Mustache, HolodeckClient, HolodeckResource, Designer, SceneItem){
@@ -30,7 +30,7 @@ define([
         holodeck = HolodeckClient;
 
         registerActions();
-        createSceneWithNameAndData('Untitled Scene', []);
+        createDefaultScene();
     }
 
     function registerActions(){
@@ -63,11 +63,43 @@ define([
     }
 
     function onAddSceneClicked(e){
-       createSceneWithNameAndData('Untitled Scene', []);
+       createDefaultScene();
     }
 
     function onRemoveSceneClicked(e){
-        return;
+        var currentScene = Designer.getCurrentScene();
+        var index = _.indexOf(scenes, currentScene);
+
+        if(index == -1){
+            return;
+        }
+        removeSceneAtIndex(index);
+    }
+
+    function removeSceneAtIndex(index){
+        var target = scenes[index];
+
+        if(target === undefined){
+            return;
+        }
+
+        var newSceneList = _.without(scenes, target);
+        var nextSelectedIndex = index - 1;
+
+        if (index === 0){
+            nextSelectedIndex = 1;
+        }
+
+        target.$view.remove();
+
+        if (scenes.length > 1){
+            var nextScene = scenes[nextSelectedIndex];
+            focusScene(nextScene);
+            scenes = newSceneList;
+        } else {
+            scenes = [];
+            createDefaultScene();
+        }
     }
 
     function onSceneClicked(e){
@@ -75,11 +107,19 @@ define([
 
 
         if (shouldChangeToScene(scene)){
-            var currentScene = Designer.getCurrentScene();
-            currentScene.$view.removeClass('selected');
-            scene.$view.addClass('selected');
-            Designer.setCurrentScene(scene);
+            focusScene(scene);
         }
+    }
+
+    function focusScene(scene){
+        var currentScene = Designer.getCurrentScene();
+
+        if(currentScene){
+            currentScene.$view.removeClass('selected');
+        }
+
+        scene.$view.addClass('selected');
+        Designer.setCurrentScene(scene);
     }
 
     function shouldChangeToScene(scene){
@@ -90,6 +130,10 @@ define([
         }
 
         return true;
+    }
+
+    function createDefaultScene(){
+        createSceneWithNameAndData('Untitled Scene', []);
     }
 
     function createSceneWithNameAndData(name, data){
