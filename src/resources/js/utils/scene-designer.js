@@ -11,6 +11,7 @@ define([
     var $titleLabel = false;
     var $titleField = false;
     var currentLights = {};
+    var currentScene = false;
 
 
     function init(){
@@ -27,10 +28,10 @@ define([
         $titleLabel = $view.find('.scene-title label');
         $titleField = $view.find('.scene-title input[type="text"]');
 
+
+
         $titleLabel.on('click', onSceneTitleClicked);
         $titleField.on('blur', onSceneTitleBlur);
-        $titleField.val($titleLabel.text());
-
     }
 
     function onSceneTitleClicked(e){
@@ -47,6 +48,7 @@ define([
             value = 'Untitled Scene';
         }
 
+        currentScene.setName(value);
         $titleLabel.text(value);
         $titleField.hide();
         $titleLabel.show();
@@ -99,14 +101,66 @@ define([
             return;
         }
 
+        // set default color:
+        data.hue = 200;
+        data.sat = 100;
+        data.bri = 100;
+
         addLightForModel(data);
     }
 
     function addLightForModel(model){
+        /*
+        {
+            name: "Clark's Room"
+            number: 1
+            hue: 360
+            sat: 100
+            bri: 100
+        }
+        */
         var light = new SceneLight(model);
 
-        currentLights[model.number] = light;
+        //currentLights[model.number] = light;
         $sceneLights.append(light.$view);
+
+        currentScene.addLight(light);
+    }
+
+    function clearScene(){
+        if (currentScene){
+                _.each(currentScene.model.lights, function(value, index){
+                value.$view.remove();
+            });
+
+            currentScene.clearLights();
+        }
+    }
+
+    function setCurrentScene(scene){
+        setTitle(scene.model.name);
+        setLights(scene.model.lights);
+        currentScene = scene;
+    }
+
+    function setTitle(value){
+        $titleField.val(value);
+        $titleLabel.text(value);
+    }
+
+    function setLights(data){
+        _.each(data, function(light){
+            /* model
+                {
+                    name: "Clark's Room"
+                    number: 1
+                    hue: 360
+                    sat: 100
+                    bri: 100
+                }
+            */
+            addLightForModel(light);
+        });
     }
 
     function getCurrentScene(){
@@ -136,6 +190,10 @@ define([
 
     return {
         '$view': $view,
-        'getCurrentScene': getCurrentScene
+        'getCurrentScene': getCurrentScene,
+        'clearScene': clearScene,
+        'setTitle': setTitle,
+        'setLights': setLights,
+        'setCurrentScene': setCurrentScene
     };
 });

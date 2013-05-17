@@ -12,6 +12,13 @@
             </div>
         </li>
     </script>
+    <script id="scene-template" type="text/x-mustache">
+        <li class="scene">
+            <div class="scene-view">
+                <label>{{ name }}</label>
+            </div>
+        </li>
+    </script>
     <script id="scene-light-template" type="text/x-mustache">
         <li class="scene-light">
             <div class="scene-light-view">
@@ -22,20 +29,20 @@
                     <div class="color-controls">
                         <div class="control">
                             <label>H:</label>
-                            <input type="range" class="hue-slider" name="h-slider" value="0" min="0" max="360">
-                            <input type="text" name="h-input" value="0" maxlength="3">
+                            <input type="range" class="hue-slider" name="h-slider" value="{{ hue }}" min="0" max="360">
+                            <input type="text" name="h-input" value="{{ hue }}" maxlength="3">
                         </div>
 
                         <div class="control">
                             <label>S:</label>
-                            <input type="range" name="s-slider" value="100" min="0" max="100">
-                            <input type="text" name="s-input" value="100" maxlength="3">
+                            <input type="range" name="s-slider" value="{{ sat }}" min="0" max="100">
+                            <input type="text" name="s-input" value="{{ sat }}" maxlength="3">
                         </div>
 
                         <div class="control">
                             <label>V:</label>
-                            <input type="range" name="v-slider" value="100" min="0" max="100">
-                            <input type="text" name="v-input" value="100" maxlength="3">
+                            <input type="range" name="v-slider" value="{{ bri }}" min="0" max="100">
+                            <input type="text" name="v-input" value="{{ bri }}" maxlength="3">
                         </div>
                     </div>
                 </div>
@@ -143,14 +150,41 @@
                         <div class="view">
                             <fieldset>
                                 <legend>Scenes</legend>
-                                <form>
                                     <div class="control-group">
                                         <div class="controls">
                                             <div class="btn">Export Current Scene</div>
                                         </div>
                                     </div>
-                                </form>
+                                    <ul id="available-scenes">
+                                        <li class="scene">
+                                            <div class="scene-view">
+                                                <label>{{ name }}</label>
+                                            </div>
+                                        </li>
+                                        <li class="scene">
+                                            <div class="scene-view">
+                                                <label>{{ name }}</label>
+                                            </div>
+                                        </li>
+                                        <li class="scene">
+                                            <div class="scene-view">
+                                                <label>{{ name }}</label>
+                                            </div>
+                                        </li>
+                                        <li class="scene">
+                                            <div class="scene-view">
+                                                <label>{{ name }}</label>
+                                            </div>
+                                        </li>
+                                    </ul>
                             </fieldset>
+                            <div id="scene-footer-controls">
+                                <ul class="control-group">
+                                    <li class="action"><a href="#" class='add'>New</a></li>
+                                    <li class="action"><a href="#" class='remove'>Remove</a></li>
+                                    <li class="action"><a href="#" class='export'>Export</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </li>
                 </ul>

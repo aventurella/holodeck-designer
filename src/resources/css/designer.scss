@@ -88,6 +88,7 @@ body{
 
 .cbp-vimenu li a {
     border-bottom: none;
+    color: #cacaca;
 }
 
 .cbp-vimenu li a:hover,
@@ -132,7 +133,7 @@ body{
         bottom:0;
         width:100%;
         position:absolute;
-        color: #cecece;
+        color: #cacaca;
         visibility:hidden;
         -webkit-backface-visibility: hidden;
         -webkit-transform: translate3d(0, 0, 0);
@@ -146,12 +147,8 @@ body{
         }
 
         legend{
-            color:#cecece;
+            color:#cacaca;
             border-bottom:none;
         }
     }
-}
-
-.ui-sortable-helper{
-    color:#ff0000;
 }

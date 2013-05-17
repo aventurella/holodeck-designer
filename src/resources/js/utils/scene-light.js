@@ -141,6 +141,9 @@ define([
         this.showColorControl = false;
         this.model = model;
         this.registerActions();
+
+        colors = this.HSBValue();
+        this.updateColorWithHSB(colors);
     }
 
     SceneLight.prototype.registerActions = function() {

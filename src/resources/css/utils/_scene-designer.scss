@@ -170,6 +170,7 @@
 
         input[type="text"]:focus{
             border-color: rgba(82, 168, 236, 0.8);
+            -webkit-box-shadow: none;
         }
     }
 
