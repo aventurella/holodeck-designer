@@ -140,13 +140,13 @@ define([
 
         this.showColorControl = false;
         this.model = model;
-        this.registerActions();
 
         colors = this.HSBValue();
         this.updateColorWithHSB(colors);
+        this.registerEvents();
     }
 
-    SceneLight.prototype.registerActions = function() {
+    SceneLight.prototype.registerEvents = function() {
         this.$colorBlock.on('click', {'context': this}, onColorBlockClicked);
         this.$hSlider.on('change', {'context': this}, onHueSliderChanged);
         this.$sSlider.on('change', {'context': this}, onSatSliderChanged);
@@ -160,6 +160,30 @@ define([
         this.$colorBlock.on('dragover', {'context': this}, onColorOver);
         this.$colorBlock.on('dragleave', {'context': this}, onColorLeave);
         this.$colorBlock.on('drop', {'context': this}, onColorDrop);
+    };
+
+    SceneLight.prototype.unregisterEvents = function() {
+        this.$colorBlock.off('click');
+        this.$hSlider.off('change');
+        this.$sSlider.off('change');
+        this.$vSlider.off('change');
+
+        this.$hInput.off('blur');
+        this.$sInput.off('blur');
+        this.$vInput.off('blur');
+
+        this.$colorBlock.off('dragenter');
+        this.$colorBlock.off('dragover');
+        this.$colorBlock.off('dragleave');
+        this.$colorBlock.off('drop');
+    };
+
+    SceneLight.prototype.viewWillAppear = function() {
+        //this.registerEvents();
+    };
+
+    SceneLight.prototype.viewWillDisappear = function() {
+        //this.unregisterEvents();
     };
 
     SceneLight.prototype.shouldTransitionToColorControl = function() {
@@ -224,6 +248,10 @@ define([
         var h = colors.hue;
         var s = colors.sat;
         var b = colors.bri;
+
+        this.model.hue = h;
+        this.model.sat = s;
+        this.model.bri = b;
 
         this.$hSlider.val(h);
         this.$sSlider.val(s);

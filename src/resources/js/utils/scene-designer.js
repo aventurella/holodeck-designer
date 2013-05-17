@@ -61,7 +61,6 @@ define([
     }
 
     function onLightLeave(e){
-        //$view.removeClass('droptarget');
         $dropMask.removeClass('droptarget');
     }
 
@@ -96,20 +95,21 @@ define([
         var data = JSON.parse(
             dataTransfer.getData('application/x-bridge-light'));
 
-        var existingLight = currentLights[data.number];
-        if (existingLight){
-            return;
-        }
+        // var existingLight = currentLights[data.number];
+        // if (existingLight){
+        //     return;
+        // }
 
         // set default color:
         data.hue = 200;
         data.sat = 100;
         data.bri = 100;
 
-        addLightForModel(data);
+        var light = new SceneLight(data);
+        addLight(light);
     }
 
-    function addLightForModel(model){
+    function addLight(sceneLight){
         /*
         {
             name: "Clark's Room"
@@ -119,28 +119,39 @@ define([
             bri: 100
         }
         */
-        var light = new SceneLight(model);
 
-        //currentLights[model.number] = light;
-        $sceneLights.append(light.$view);
+        currentScene.addLight(sceneLight);
+        addLightToScene(sceneLight);
+    }
 
-        currentScene.addLight(light);
+    function clearDesignSurface(){
+        _.each(currentScene.model.lights, function(value){
+            value.viewWillDisappear();
+            value.$view.detach();
+        });
     }
 
     function clearScene(){
         if (currentScene){
-                _.each(currentScene.model.lights, function(value, index){
-                value.$view.remove();
-            });
-
+            clearDesignSurface();
             currentScene.clearLights();
         }
     }
 
+    function getCurrentScene(){
+        return currentScene;
+    }
+
     function setCurrentScene(scene){
+
+        if(currentScene){
+            clearDesignSurface();
+        }
+
+        currentScene = scene;
+
         setTitle(scene.model.name);
         setLights(scene.model.lights);
-        currentScene = scene;
     }
 
     function setTitle(value){
@@ -149,8 +160,8 @@ define([
     }
 
     function setLights(data){
-        _.each(data, function(light){
-            /* model
+        _.each(data, function(sceneLight){
+            /* light.model
                 {
                     name: "Clark's Room"
                     number: 1
@@ -159,32 +170,17 @@ define([
                     bri: 100
                 }
             */
-            addLightForModel(light);
+            // don't use add light
+            addLightToScene(sceneLight);
         });
     }
 
-    function getCurrentScene(){
-        var sceneLabel = $titleField.val();
-        var data = {'lights':{} };
-        var lights = data.lights;
-
-        var scene = lights[sceneLabel] = {};
-
-        _.each(currentLights, function(value, index){
-
-            var hsbColor = value.HSBValue();
-            var ctx = {
-                'on': true,
-                'h': hsbColor.hue,
-                's': hsbColor.sat,
-                'b': hsbColor.bri};
-
-            scene[value.model.number] = ctx;
-
-        });
-
-        return data;
+    function addLightToScene(sceneLight){
+        sceneLight.viewWillAppear();
+        $sceneLights.append(sceneLight.$view);
     }
+
+
 
     init();
 
@@ -192,6 +188,7 @@ define([
         '$view': $view,
         'getCurrentScene': getCurrentScene,
         'clearScene': clearScene,
+        'clearDesignSurface': clearDesignSurface,
         'setTitle': setTitle,
         'setLights': setLights,
         'setCurrentScene': setCurrentScene

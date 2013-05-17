@@ -28,7 +28,7 @@ define([
     };
 
     SceneItem.prototype.setName = function(value){
-        this.model.title = value;
+        this.model.name = value;
         this.$title.text(value);
     };
 

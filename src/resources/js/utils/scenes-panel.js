@@ -40,16 +40,15 @@ define([
     }
 
     function onExportScenesClicked(e){
-        //var data = Designer.getCurrentScene();
-        //console.log(Designer.getCurrentScene());
-        //holodeck.saveSceneToFile(JSON.stringify(data));
         var data = {};
+
         _.each(scenes, function(scene){
             var model = scene.model;
             var lights = {};
 
             _.each(scene.model.lights, function(light){
                 var lightModel = light.model;
+
                 lights[lightModel.number] = {
                     'h': parseInt(lightModel.hue, 10),
                     's': parseInt(lightModel.sat, 10),
@@ -64,24 +63,55 @@ define([
     }
 
     function onAddSceneClicked(e){
-       return;
+       createSceneWithNameAndData('Untitled Scene', []);
     }
 
     function onRemoveSceneClicked(e){
         return;
     }
 
+    function onSceneClicked(e){
+        var scene = e.data.context;
+
+
+        if (shouldChangeToScene(scene)){
+            var currentScene = Designer.getCurrentScene();
+            currentScene.$view.removeClass('selected');
+            scene.$view.addClass('selected');
+            Designer.setCurrentScene(scene);
+        }
+    }
+
+    function shouldChangeToScene(scene){
+        var currentScene = Designer.getCurrentScene();
+
+        if (currentScene === scene){
+            return false;
+        }
+
+        return true;
+    }
+
     function createSceneWithNameAndData(name, data){
 
-        var model = {'name': name,
-                     'lights': data};
+        var sceneData = {'name': name,
+                         'lights': data};
 
-        var scene = new SceneItem(model);
-
-        Designer.clearScene();
-        Designer.setCurrentScene(scene);
-        $availableScenes.append(scene.$view);
+        var scene = new SceneItem(sceneData);
         scenes.push(scene);
+
+        $availableScenes.append(scene.$view);
+
+        scene.$view.on('click', {'context': scene}, onSceneClicked);
+        scene.$view.addClass('selected');
+
+        var currentScene = Designer.getCurrentScene();
+
+        if(currentScene){
+            currentScene.$view.removeClass('selected');
+        }
+
+        Designer.setCurrentScene(scene);
     }
 
     function viewWillAppear(){}
