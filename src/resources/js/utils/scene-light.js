@@ -210,9 +210,9 @@ define([
     };
 
     SceneLight.prototype.HSBValue = function() {
-        var h = this.$hSlider.val();
-        var s = this.$sSlider.val();
-        var b = this.$vSlider.val();
+        var h = parseInt(this.$hSlider.val(), 10);
+        var s = parseInt(this.$sSlider.val(), 10);
+        var b = parseInt(this.$vSlider.val(), 10);
 
         return {'hue': h, 'sat': s, 'bri': b};
     };

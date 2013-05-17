@@ -4,7 +4,7 @@ define([
     'mustache',
     'src/resources/js/holodeck/holodeck',
     'src/resources/js/holodeck/cocoa',
-    //'src/resources/js/holodeck/cocoa',
+    //'src/resources/js/holodeck/mock',
     'src/resources/js/utils/scene-designer'
 ], function($, _, Mustache, HolodeckClient, HolodeckResource, Designer){
 
@@ -25,8 +25,9 @@ define([
     }
 
     function onExportSceneClicked(e){
+        var data = Designer.getCurrentScene();
         console.log(Designer.getCurrentScene());
-        holodeck.saveSceneToFile(Designer.getCurrentScene());
+        holodeck.saveSceneToFile(JSON.stringify(data));
     }
 
     function viewWillAppear(){}

@@ -1,8 +1,8 @@
 define([
     'jquery',
     'src/resources/js/hue/hue',
-    //'src/resources/js/hue/cocoa'
-    'src/resources/js/hue/mock'
+    'src/resources/js/hue/cocoa'
+    //'src/resources/js/hue/mock'
 ], function($, HueClient, HueResource){
 
     var $view = $('.panel.hue-control');
@@ -164,9 +164,9 @@ define([
     }
 
     function HSBValue() {
-        var h = $hSlider.val();
-        var s = $sSlider.val();
-        var b = $vSlider.val();
+        var h = parseInt($hSlider.val(), 10);
+        var s = parseInt($sSlider.val(), 10);
+        var b = parseInt($vSlider.val(), 10);
 
         return {'hue': h, 'sat': s, 'bri': b};
     }

@@ -110,19 +110,23 @@ define([
     }
 
     function getCurrentScene(){
-        data = {};
-        data.label = $titleField.val();
-        data.lights = [];
+        var sceneLabel = $titleField.val();
+        var data = {'lights':{} };
+        var lights = data.lights;
+
+        var scene = lights[sceneLabel] = {};
 
         _.each(currentLights, function(value, index){
 
             var hsbColor = value.HSBValue();
-            model = {'number': value.model.number,
-                     'hue': hsbColor.hue,
-                     'sat': hsbColor.sat,
-                     'bri': hsbColor.bri};
+            var ctx = {
+                'on': true,
+                'h': hsbColor.hue,
+                's': hsbColor.sat,
+                'b': hsbColor.bri};
 
-            data.lights.push(model);
+            scene[value.model.number] = ctx;
+
         });
 
         return data;
