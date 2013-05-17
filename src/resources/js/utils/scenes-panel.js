@@ -3,8 +3,8 @@ define([
     'underscore',
     'mustache',
     'src/resources/js/holodeck/holodeck',
-    'src/resources/js/holodeck/cocoa',
-    //'src/resources/js/holodeck/mock',
+    //'src/resources/js/holodeck/cocoa',
+    'src/resources/js/holodeck/mock',
     'src/resources/js/utils/scene-designer'
 ], function($, _, Mustache, HolodeckClient, HolodeckResource, Designer){
 
