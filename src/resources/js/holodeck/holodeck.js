@@ -6,12 +6,12 @@ define([], function(){
         resource = holodeckResource;
     }
 
-    function saveSceneToFile(data){
-        return resource.saveSceneToFile(data);
+    function saveJSONStringToFile(data){
+        return resource.saveJSONStringToFile(data);
     }
 
     return {
         'init': init,
-        'saveSceneToFile': saveSceneToFile,
+        'saveJSONStringToFile': saveJSONStringToFile,
     };
 });

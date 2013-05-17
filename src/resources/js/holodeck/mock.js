@@ -1,10 +1,10 @@
 define([], function(){
 
-    function saveSceneToFile(data){
-        console.log('saveSceneToFile', data);
+    function saveJSONStringToFile(data){
+        console.log('saveJSONStringToFile', data);
     }
 
     return {
-        'saveSceneToFile': saveSceneToFile
+        'saveJSONStringToFile': saveJSONStringToFile
     };
 });

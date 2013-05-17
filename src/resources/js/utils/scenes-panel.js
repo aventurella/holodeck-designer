@@ -3,8 +3,8 @@ define([
     'underscore',
     'mustache',
     'src/resources/js/holodeck/holodeck',
-    //'src/resources/js/holodeck/cocoa',
-    'src/resources/js/holodeck/mock',
+    'src/resources/js/holodeck/cocoa',
+    //'src/resources/js/holodeck/mock',
     'src/resources/js/utils/scene-designer',
     'src/resources/js/utils/scene-item'
 ], function($, _, Mustache, HolodeckClient, HolodeckResource, Designer, SceneItem){
@@ -15,6 +15,7 @@ define([
     var $removeScene = false;
 
     var $availableScenes=false;
+    var scenes = [];
     var holodeck = false;
 
     function init(){
@@ -39,9 +40,27 @@ define([
     }
 
     function onExportScenesClicked(e){
-        var data = Designer.getCurrentScene();
-        console.log(Designer.getCurrentScene());
-        holodeck.saveSceneToFile(JSON.stringify(data));
+        //var data = Designer.getCurrentScene();
+        //console.log(Designer.getCurrentScene());
+        //holodeck.saveSceneToFile(JSON.stringify(data));
+        var data = {};
+        _.each(scenes, function(scene){
+            var model = scene.model;
+            var lights = {};
+
+            _.each(scene.model.lights, function(light){
+                var lightModel = light.model;
+                lights[lightModel.number] = {
+                    'h': parseInt(lightModel.hue, 10),
+                    's': parseInt(lightModel.sat, 10),
+                    'b': parseInt(lightModel.bri, 10)
+                };
+            });
+
+            data[model.name] = lights;
+        });
+
+        holodeck.saveJSONStringToFile(JSON.stringify(data));
     }
 
     function onAddSceneClicked(e){
@@ -62,6 +81,7 @@ define([
         Designer.clearScene();
         Designer.setCurrentScene(scene);
         $availableScenes.append(scene.$view);
+        scenes.push(scene);
     }
 
     function viewWillAppear(){}
