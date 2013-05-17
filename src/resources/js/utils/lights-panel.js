@@ -2,10 +2,8 @@ define([
     'jquery',
     'underscore',
     'mustache',
-    'src/resources/js/hue/hue',
-    'src/resources/js/hue/cocoa'
-    //'src/resources/js/hue/mock'
-], function($, _, Mustache, HueClient, HueResource){
+    'src/resources/js/hue/hue'
+], function($, _, Mustache, HueClient){
 
     var $view = false;
     var $hostInput = false;
@@ -25,7 +23,6 @@ define([
         $availableLights = $('#available-lights');
 
         $view.find('.btn').on('click', onLoadLightsClick);
-        HueClient.init(HueResource);
 
         lightTemplate = Mustache.compile($('#bridge-light-template').html());
 
@@ -98,7 +95,7 @@ define([
         };
     }
 
-    function loadHuesComplete(data){
+    function setHues(data){
         hueList = data;
         $.each(data, function(key, value){
             $hostInput
@@ -110,14 +107,13 @@ define([
 
     function viewWillAppear(){}
     function viewWillDisappear(){}
-    function viewDidLoad(){
-        hue.getHues(loadHuesComplete);
-    }
+    function viewDidLoad(){}
 
     init();
     return {
         '$view': $view,
         'viewWillAppear': viewWillAppear,
-        'viewWillDisappear': viewWillDisappear
+        'viewWillDisappear': viewWillDisappear,
+        'setHues': setHues
     };
 });

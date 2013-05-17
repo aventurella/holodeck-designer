@@ -78,6 +78,12 @@ define([
         isAnimating = false;
     }
 
+    function setHues(data){
+        LightsPanel.setHues(data);
+        ControlPanel.setHues(data);
+    }
+
+
     function panelForTag(tag){
 
         data = {
@@ -94,6 +100,7 @@ define([
     return {
         'shouldTransitionPanel': shouldTransitionPanel,
         'transitionPanelFromTo': transitionPanelFromTo,
+        'setHues': setHues,
 
         'panels': {
             'lightsPanel': LightsPanel,

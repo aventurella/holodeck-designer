@@ -1,9 +1,7 @@
 define([
     'jquery',
-    'src/resources/js/hue/hue',
-    'src/resources/js/hue/cocoa'
-    //'src/resources/js/hue/mock'
-], function($, HueClient, HueResource){
+    'src/resources/js/hue/hue'
+], function($, HueClient){
 
     var $view = $('.panel.hue-control');
     var $colorView = false;
@@ -27,7 +25,6 @@ define([
         $availableLights = $('#available-lights-select');
 
         $view.find('.btn').on('click', onLoadLightsClick);
-        HueClient.init(HueResource);
 
         hue = HueClient;
         viewDidLoad();
@@ -67,7 +64,7 @@ define([
         $availableLights.html('');
     }
 
-    function loadHuesComplete(data){
+    function setHues(data){
         hueList = data;
         $.each(data, function(key, value){
             $hostInput
@@ -96,7 +93,6 @@ define([
 
     // LIVING IN SIN BEYOND THIS POINT, I'M SORRY FOR REPEATING CODE!
     function viewDidLoad(){
-        hue.getHues(loadHuesComplete);
         // I'm gonna come right out and say it...
         // I'm not thrilled with his duplication of code from
         // scene-light. This will need to be refactored later
@@ -286,6 +282,7 @@ define([
     return {
         '$view': $view,
         'viewWillAppear': viewWillAppear,
-        'viewWillDisappear': viewWillDisappear
+        'viewWillDisappear': viewWillDisappear,
+        'setHues': setHues
     };
 });
