@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'mustache',
-    'src/resources/js/hue/hue'
-], function($, _, Mustache, HueClient){
+    'src/resources/js/hue/hue',
+    'src/resources/js/utils/scene-designer'
+], function($, _, Mustache, HueClient, Designer){
 
     var $view = false;
     var $hostInput = false;
@@ -21,8 +22,10 @@ define([
         $hostInput = $view.find('select[name="host"]');
         $usernameInput = $view.find('input[name="username"]');
         $availableLights = $('#available-lights');
+        $livePreview = $view.find('input[type="checkbox"][name="live-preview"]');
 
         $view.find('.btn').on('click', onLoadLightsClick);
+        $livePreview.on('change', onToggleLivePreview);
 
         lightTemplate = Mustache.compile($('#bridge-light-template').html());
 
@@ -33,6 +36,10 @@ define([
     function onLoadLightsClick(e){
         account = getHueCredentials();
         var lights = hue.getLights(account, loadLightsComplete);
+    }
+
+    function onToggleLivePreview(e){
+        Designer.enableLivePreview($livePreview.prop('checked'));
     }
 
     function loadLightsComplete(data){
@@ -48,7 +55,8 @@ define([
 
             var model = {
                 'number': value.number,
-                'name': name
+                'name': name,
+                'account': getHueCredentials()
             };
 
             var light = $(lightTemplate(model));

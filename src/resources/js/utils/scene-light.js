@@ -1,7 +1,8 @@
 define([
     'jquery',
-    'mustache'
-], function($, Mustache){
+    'mustache',
+    'src/resources/js/hue/hue'
+], function($, Mustache, HueClient){
 
     lightTemplate = Mustache.compile($('#scene-light-template').html());
 
@@ -140,6 +141,8 @@ define([
 
         this.showColorControl = false;
         this.model = model;
+        this.livePreview = false;
+        this.debounceLightTimeout = false;
 
         colors = this.HSBValue();
         this.updateColorWithHSB(colors);
@@ -176,6 +179,29 @@ define([
         this.$colorBlock.off('dragover');
         this.$colorBlock.off('dragleave');
         this.$colorBlock.off('drop');
+    };
+
+    SceneLight.prototype.enableLivePreview = function(enabled){
+
+        this.livePreview = enabled;
+
+        if(enabled){
+            this.updateLightWithHSB(this.HSBValue());
+        }
+    };
+
+    SceneLight.prototype.updateLightWithHSB = function(color) {
+
+        var account = this.model.account;
+        var index = this.model.number;
+
+        if (this.debounceLightTimeout){
+            clearTimeout(this.debounceLightTimeout);
+        }
+
+        this.debounceLightTimeout = setTimeout(function(){
+            HueClient.setLightStateForId(account, color, index);
+        },  100);
     };
 
     SceneLight.prototype.viewWillAppear = function() {
@@ -267,6 +293,10 @@ define([
         b = hsl.bri;
 
         this.$colorBlock.css({'background-color': 'hsl(' + h + ', ' + s + '%, ' + b + '%)'});
+
+        if(this.livePreview){
+            this.updateLightWithHSB(colors);
+        }
     };
 
     return SceneLight;

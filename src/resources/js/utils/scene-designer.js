@@ -12,6 +12,7 @@ define([
     var $titleField = false;
     var currentLights = {};
     var currentScene = false;
+    var livePreview = false;
 
 
     function init(){
@@ -154,6 +155,14 @@ define([
         setLights(scene.model.lights);
     }
 
+    function enableLivePreview(value){
+        livePreview = value;
+
+        _.each(currentScene.model.lights, function(light){
+            light.enableLivePreview(value);
+        });
+    }
+
     function setTitle(value){
         $titleField.val(value);
         $titleLabel.text(value);
@@ -177,6 +186,7 @@ define([
 
     function addLightToScene(sceneLight){
         sceneLight.viewWillAppear();
+        sceneLight.enableLivePreview(livePreview);
         $sceneLights.append(sceneLight.$view);
     }
 
@@ -191,6 +201,7 @@ define([
         'clearDesignSurface': clearDesignSurface,
         'setTitle': setTitle,
         'setLights': setLights,
-        'setCurrentScene': setCurrentScene
+        'setCurrentScene': setCurrentScene,
+        'enableLivePreview': enableLivePreview
     };
 });
