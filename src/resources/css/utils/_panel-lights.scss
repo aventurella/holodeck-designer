@@ -3,6 +3,19 @@
     &.hue-lights{
         background-color:#252525;
 
+        .controls{
+            .btn{
+                float:left;
+
+            }
+
+            .switch{
+                float:left;
+                margin-top:5px;
+                padding-left: 47px;
+            }
+        }
+
         #available-lights{
             height:300px;
             overflow-y: scroll;

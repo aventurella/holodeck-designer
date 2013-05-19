@@ -1,0 +1,158 @@
+// .toggle-bg{
+//     background: #2f2f2f; /* You'll want to see the area being toggled, but feel free to change the color */
+//     display: block; /* ...So that we can set a height and width */
+//     float: left; /* ...So that it doesn't take up the full width of the page */
+//     height: 13px; /* You can change this later if you want */
+//     position: relative; /* Required to allow the switch to move around */
+//     width: 26px; /* This can be changed later as well */
+
+//     border-radius: 13px;
+
+//     border-color: #1a1a1a;
+//     -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.05), 0 1px 1px rgba(255, 255, 255, 0.2);
+//     margin-top: 4px;
+//     margin-right: 7px;
+//     overflow: hidden;
+// }
+
+
+// .toggle-bg input{
+//     height: 28px;
+//     left: 0;
+//     margin: 0; /* Reset the margins and padding */
+//     opacity: 0; /* Invisible! */
+//     padding: 0;
+//     position: absolute;
+//     top: 0px; /* Shift vertically */
+//     width: 36px;
+//     z-index: 2; /* We want the input to be over the span.switch, which we'll give a z-index of 1 */
+// }
+
+
+// .switch{
+//     //background: #ccc;
+//     display: block;
+//     //height: 14px;
+//     //width: 14px;
+//     position: absolute;
+//     left: 0px; /* This is the starting point. When adding a border radius, a small bit of the background is shown if we use left: 0;, so -1px is best.*/
+//     top: 0px; /* ...To keep it centered vertically */
+
+//     z-index: 1; /* Remember, it must be below the invisible inputs */
+
+//     //transition: left .2s ease;
+//     -webkit-transform: translate3d(0, 0, 0);
+//     -webkit-backface-visibility: hidden;
+//     -webkit-transition: all .2s ease-in-out;
+
+//     width:13px;
+//     height:13px;
+//     border-radius:13px;
+//     box-shadow: rgba(255,255,255,0.1) 0 1px 1px 1px inset,rgba(255,255,255,0.2) 0 1px inset,rgba(0,0,0,0.4) 0 -1px 1px inset,rgba(0,0,0,0.4) 0 1px 1px, rgba(0,0,0,0.4) 0 0 1px 1px;
+//     background:
+//     -webkit-linear-gradient(top,
+//         rgb(79, 79, 79),
+//         rgb(47, 47, 47));
+// }
+
+
+// .toggle-bg input:checked~.switch{
+//     -webkit-transform: translateX(0px);
+//     transform: translateX(0px);
+// } /* initial toggle position */
+
+// .toggle-bg input~:checked~.switch{
+//     transform: translateX(13px);
+//     -webkit-transform: translateX(13px);
+// } /* final relative toggle position */
+
+// .toggle-bg input:checked{ z-index: 0; }
+
+
+
+
+
+
+.switch{
+
+    label{
+
+        span{
+            color:#cacaca;
+            font-family: "holodeck";
+            font-weight:normal;
+            font-size:13px;
+            -webkit-font-smoothing: antialiased;
+            margin-top:0.9em;
+
+            &.on:before{
+                content: '\6B';
+            }
+
+            &.off:before{
+                content: '\6C';
+            }
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+
+        }
+
+        input[type="checkbox"]:checked + div {
+            padding-left: 1em;
+            width: 1em;
+            background-position: 0 0;
+        }
+
+
+        input[type="checkbox"] + div:before {
+            content: ' ';
+            position:absolute;
+            width: 1em;
+            height: 1em;
+            border-radius: inherit;
+            text-indent: -2.5em;
+
+
+            background: -webkit-linear-gradient(top,
+                        rgb(79, 79, 79),
+                        rgb(47, 47, 47));
+
+            box-shadow: rgba(255,255,255,0.1) 0 1px 1px 1px inset,
+                        rgba(255,255,255,0.1) 0 1px inset,
+                        #1a1a1a 0 -1px 1px inset,
+                        #1a1a1a 0 1px 1px,
+                        #1a1a1a 0 0 1px 1px;
+
+        }
+
+        .switch-bg{
+            display: inline-block;
+            vertical-align: middle;
+            width: 2em; height: 1em;
+            border: 1px solid #1a1a1a;
+            border-radius: 999px;
+            margin: 0 .5em;
+            margin-top: -4px;
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            background-origin: border-box;
+            background-clip: border-box;
+            overflow: hidden;
+            transition-duration: .4s;
+            transition-property: padding, width, background-position, text-indent;
+
+            font-size: 100%; /* change this and see how they adjust! */
+
+            border-color: #1a1a1a;
+            -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.05), 0 1px 1px rgba(255, 255, 255, 0.2);
+
+            background-image:
+                              -webkit-linear-gradient(0deg, #47a3da 50%, transparent 50%),
+                              -webkit-linear-gradient(transparent, #2f2f2f);
+        }
+    }
+
+}
