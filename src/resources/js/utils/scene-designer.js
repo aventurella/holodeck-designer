@@ -96,18 +96,26 @@ define([
         var data = JSON.parse(
             dataTransfer.getData('application/x-bridge-light'));
 
-        // var existingLight = currentLights[data.number];
-        // if (existingLight){
-        //     return;
-        // }
-
         // set default color:
         data.hue = 200;
         data.sat = 100;
         data.bri = 100;
 
         var light = new SceneLight(data);
-        addLight(light);
+
+        if (shouldAddLightToScene(light)){
+            addLight(light);
+        }
+    }
+
+    function shouldAddLightToScene(candidate){
+        return _.every(currentScene.model.lights, function(light){
+            if (light.model.number == candidate.model.number){
+                return false;
+            }
+
+            return true;
+        });
     }
 
     function addLight(sceneLight){
