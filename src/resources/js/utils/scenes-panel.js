@@ -40,7 +40,7 @@ define([
     }
 
     function onExportScenesClicked(e){
-        var data = {};
+        var data = {'lights':{}};
 
         _.each(scenes, function(scene){
             var model = scene.model;
@@ -52,11 +52,12 @@ define([
                 lights[lightModel.number] = {
                     'h': parseInt(lightModel.hue, 10),
                     's': parseInt(lightModel.sat, 10),
-                    'b': parseInt(lightModel.bri, 10)
+                    'b': parseInt(lightModel.bri, 10),
+                    'on': true
                 };
             });
 
-            data[model.name] = lights;
+            data.lights[model.name] = lights;
         });
 
         holodeck.saveJSONStringToFile(JSON.stringify(data));
