@@ -18,8 +18,9 @@
 
         #available-lights{
             height:300px;
-            overflow-y: scroll;
+            overflow-y: auto;
             overflow-x: hidden;
+            border:1px solid #1a1a1a;
         }
 
         .bridge-light{

@@ -1,0 +1,17 @@
+// https://www.webkit.org/blog/363/styling-scrollbars/
+// http://beautifulpixels.com/goodies/create-custom-webkit-scrollbar/
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color:transparent;
+}
+
+::-webkit-scrollbar-track-piece  {
+    background-color: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background-color: #3f3f3f;
+}
+
